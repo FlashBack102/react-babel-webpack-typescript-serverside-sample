@@ -4,8 +4,8 @@ import * as React from 'react'
 import ReactDOM from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import serialize from 'serialize-javascript'
-import App from '../shared/App'
-import routes from '../shared/routes'
+import App from '../shared/App.tsx'
+import routes from '../shared/routes.tsx'
 
 const app = express()
 

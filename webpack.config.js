@@ -5,14 +5,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const browserConfig = {
   mode: "production",
-  entry: './src/browser/index.js',
+  entry: './src/browser/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
+      { test: /\.(tsx?)$/, use: 'babel-loader' },
       { test: /\.css$/, use: [ 'css-loader' ]}
     ]
   },
@@ -25,7 +25,7 @@ const browserConfig = {
 
 const serverConfig = {
   mode: "production",
-  entry: './src/server/index.js',
+  entry: './src/server/index.tsx',
   target: 'node',
   externals: [nodeExternals()],
   output: {
@@ -34,7 +34,7 @@ const serverConfig = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
+      { test: /\.(tsx?)$/, use: 'babel-loader' },
       { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] }
     ]
   },
