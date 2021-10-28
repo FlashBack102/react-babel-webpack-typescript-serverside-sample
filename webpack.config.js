@@ -38,6 +38,12 @@ const serverConfig = {
       { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] }
     ]
   },
+  devServer: {
+    compress: true,
+    hot: true,
+    historyApiFallback: true,
+    port: 3000
+  },
   plugins: [
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
