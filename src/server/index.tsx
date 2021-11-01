@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express'
 import cors from 'cors'
 import * as React from 'react'
@@ -5,16 +6,35 @@ import ReactDOM from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import serialize from 'serialize-javascript'
 import App from '../shared/App.tsx'
-// import routes from '../shared/routes.tsx'
+import routes from '../shared/routes.tsx'
+
 
 const app = express()
 
-app.use(cors())
-app.use(express.static('dist'))
 
-app.get('/', (req : express.Request, res : express.Response ) => {
-  res.send('hello...')
-})
+
+if(process.env.NODE_ENv !== 'production') {
+  const webpack = require('webpack')
+  
+  const webpackConfig = require('../../webpack.client.js')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  // webpack-dev-middleware and webpack-hot-middleware setting instead of webpack-dev-server
+  const compiler = webpack(webpackConfig)
+  
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
+  }));
+  
+  app.use(webpackHotMiddleware(compiler));
+}
+
+app.use(cors())
+// app.use(express.static('dist'))
+// app.use(express.static(path.resolve(__dirname)));
+// app.use(express.static(path.resolve(__dirname, 'dist')))
+
 
 app.get('*', (req, res, next) => {
   const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}

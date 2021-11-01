@@ -6,7 +6,7 @@ export default function App () {
   return (
     <React.Fragment>
       <div className='container'>
-        <h1>App.tsx</h1>
+        <h1>App.tsx </h1>
       </div>
     </React.Fragment>
   )

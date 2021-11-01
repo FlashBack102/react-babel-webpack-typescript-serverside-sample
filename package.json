@@ -1,11 +1,11 @@
 {
-  "name": "react-router-v5-server-rendering",
-  "description": "Example for server rendering with React Router v5.",
   "scripts": {
     "build": "webpack",
-    "start": "node dist/server.js",
-    "dev": "webpack && node dist/server.js",
-    "webpack": "webpack-dev-server"
+    "start": "npm run build:dev && node dist/server.js",
+    "start:wds": "npx webpack-dev-server --env=dev",
+    "build:dev": "rm -rf dist/ && NODE_DEV=development npm run build:client && NODE_DEV=development npm run build:server",
+    "build:server": "webpack --env=server --progress",
+    "build:client": "webpack --env=client"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -24,19 +24,23 @@
     "@types/webpack-hot-middleware": "^2.25.5",
     "babel-loader": "^8.1.0",
     "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "isomorphic-fetch": "^3.0.0",
     "mini-css-extract-plugin": "^1.3.0",
     "nodemon": "^2.0.14",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.9.1",
+    "webpack-dev-middleware": "^5.2.1",
     "webpack-dev-server": "^4.4.0",
+    "webpack-env": "^0.8.0",
+    "webpack-hot-middleware": "^2.25.1",
     "webpack-node-externals": "^2.5.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "isomorphic-fetch": "^3.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.1.2",
